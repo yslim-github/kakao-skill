@@ -23,6 +23,14 @@ app.post('/skill', (req, res) => {
   });
 });
 
+// 서버 슬립 방지 (14분마다 자기 자신에게 요청)
+const https = require('https');
+setInterval(() => {
+  https.get('https://kakao-skill.onrender.com/health', () => {});
+}, 14 * 60 * 1000);
+
+app.get('/health', (req, res) => res.send('ok'));
+
 app.listen(3000, '0.0.0.0', () => {
   console.log('?ㅽ궗 ?쒕쾭 ?ㅽ뻾 以? http://localhost:3000');
 });
